@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia 👑</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:white;
+  font-family:Georgia, serif;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* Fondo partículas doradas */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* Nombre brillante */
+.nombre{
+  margin-top:60px;
+  font-size:3rem;
+  letter-spacing:4px;
+  animation:goldGlow 2s infinite alternate;
+}
+
+@keyframes goldGlow{
+  from{ text-shadow:0 0 10px gold, 0 0 20px #ffcc00;}
+  to{ text-shadow:0 0 20px gold, 0 0 40px #ffd700;}
+}
+
+/* Texto escribiéndose */
+.typing{
+  font-size:1.6rem;
+  max-width:900px;
+  margin:40px auto;
+  min-height:150px;
+  line-height:1.8;
+  padding:0 20px;
+}
+
+/* Galería */
+.galeria{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  max-width:1100px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:0 20px 60px;
+}
+
+.galeria img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  border-radius:18px;
+  transition:0.6s ease;
+  position:relative;
+  cursor:pointer;
+}
+
+.galeria img:hover{
+  transform:scale(1.15) rotate(2deg);
+  box-shadow:0 0 40px gold;
+}
+
+/* Botón elegante */
+button{
+  margin-bottom:60px;
+  padding:15px 35px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#d4af37,#ffd700);
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px gold;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="particulas"></canvas>
+
+<div class="nombre">Mi Reina 👑</div>
+
+<div class="typing" id="texto"></div>
+
+<div class="galeria">
+  <img src="fotos/preciosa1.jpg">
+  <img src="fotos/preciosa2.jpg">
+  <img src="fotos/preciosa3.jpg">
+  <img src="fotos/preciosa4.jpg">
+  <img src="fotos/preciosa5.jpg">
+  <img src="fotos/preciosa6.jpg">
+  <img src="fotos/preciosa7.jpg">
+</div>
+
+
+<button onclick="window.location.href='sorpresa.html'">
+  Última sorpresa ✨
+</button>
+
+<script>
+// TEXTO MEJORADO
+const mensaje = "Moshitooooooo... 💕 Algo innvador que se me ocurrio :D , Pues desde que llegaste a mi vida, todo cambió. Convertiste mis días normales y repetitivos en momentos que me encantan y facinaran siempre amor, eres la mejor parte de mi día, solo con escuchar que te encuentras bien me trae paz y tranquilidad a mi dia, te amoooooooooooooooo mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho mucho demasiado mi vida, un regalito bello, espero y te guste claro, te amo mi diosa👑✨";
+
+let i = 0;
+function escribir(){
+  if(i < mensaje.length){
+    document.getElementById("texto").innerHTML += mensaje.charAt(i);
+    i++;
+    setTimeout(escribir,45);
+  }
+}
+escribir();
+
+// PARTICULAS DORADAS
+const canvas = document.getElementById("particulas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<100;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+1,
+    d:Math.random()*1
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="gold";
+  ctx.beginPath();
+  for(let i=0;i<particles.length;i++){
+    let p=particles[i];
+    ctx.moveTo(p.x,p.y);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+  }
+  ctx.fill();
+  update();
+}
+
+function update(){
+  for(let i=0;i<particles.length;i++){
+    let p=particles[i];
+    p.y += p.d;
+    if(p.y>canvas.height){
+      p.y=0;
+      p.x=Math.random()*canvas.width;
+    }
+  }
+}
+
+setInterval(draw,33);
+</script>
+
+</body>
+</html>
