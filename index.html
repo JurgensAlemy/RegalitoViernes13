@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Reina 👑</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  height:100%;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+  background:black;
+}
+
+/* VIDEO */
+#miVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  z-index:0;
+}
+
+/* CONTENIDO */
+.overlay{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  padding:20px;
+}
+
+.overlay h1,
+.overlay p,
+.overlay .countdown{
+  text-shadow:0 0 25px rgba(0,0,0,0.9);
+}
+
+.nombre{
+  font-size:4rem;
+  letter-spacing:6px;
+  text-transform:uppercase;
+}
+
+.frase{
+  margin-top:25px;
+  font-size:1.5rem;
+  max-width:700px;
+  line-height:1.6;
+}
+
+.countdown{
+  margin-top:35px;
+  font-size:1.3rem;
+}
+
+/* BOTÓN GENERAL */
+button{
+  margin-top:25px;
+  padding:14px 35px;
+  border:none;
+  border-radius:40px;
+  font-weight:bold;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+/* BOTÓN AUDIO */
+#audioBtn{
+  background:white;
+  color:black;
+  box-shadow:0 0 20px rgba(255,255,255,0.8);
+}
+
+#audioBtn:hover{
+  transform:scale(1.1);
+}
+
+/* BOTÓN ENTRAR */
+#entrarBtn{
+  background:gold;
+  color:black;
+}
+
+#entrarBtn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px gold;
+}
+</style>
+</head>
+
+<body>
+
+<video id="miVideo" autoplay loop playsinline>
+  <source src="video/Hermosura.mp4" type="video/mp4">
+</video>
+
+<div class="overlay">
+
+  <h1 class="nombre">Mi Reina 👑</h1>
+
+  <p class="frase">
+    Este viernes 13 no trae mala suerte…  
+    trae la prueba de que el destino sabía exactamente lo que hacía  
+    cuando decidió que tú fueras parte de mi vida.
+  </p>
+
+  <div class="countdown" id="contador"></div>
+
+  <!-- BOTÓN ACTIVAR AUDIO -->
+  <button id="audioBtn" onclick="activarAudioManual()">
+    🔊 Toca aquí para activar el audio del video
+  </button>
+
+  <!-- BOTÓN ENTRAR -->
+  <button id="entrarBtn" onclick="entrar()">
+    Entrar ✨
+  </button>
+
+</div>
+
+<script>
+
+const video = document.getElementById("miVideo");
+const audioBtn = document.getElementById("audioBtn");
+
+/* Inicia sin sonido */
+video.muted = true;
+video.play();
+
+/* Activar audio con botón */
+function activarAudioManual(){
+    video.muted = false;
+    video.volume = 1;
+    video.play();
+    audioBtn.style.display = "none"; // ocultar botón
+}
+
+/* Botón entrar */
+function entrar(){
+  video.muted = false;
+  video.play();
+
+  setTimeout(()=>{
+    window.location.href="presentacion.html";
+  },4000);
+}
+
+/* Cuenta regresiva */
+const fechaObjetivo = new Date("Feb 17, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+  const ahora = new Date().getTime();
+  const distancia = fechaObjetivo - ahora;
+
+  const dias = Math.floor(distancia/(1000*60*60*24));
+  const horas = Math.floor((distancia%(1000*60*60*24))/(1000*60*60));
+  const minutos = Math.floor((distancia%(1000*60*60))/(1000*60));
+  const segundos = Math.floor((distancia%(1000*60))/1000);
+
+  document.getElementById("contador").innerHTML =
+    `Faltan ${dias}d ${horas}h ${minutos}m ${segundos}s 💛`;
+},1000);
+
+</script>
+
+</body>
+</html>
